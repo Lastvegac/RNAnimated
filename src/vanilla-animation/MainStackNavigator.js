@@ -1,6 +1,5 @@
 import React from 'react';
-import {StyleSheet, SafeAreaView, TouchableOpacity, Text} from 'react-native';
-
+import {StyleSheet, TouchableOpacity, Text, ScrollView} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
@@ -15,6 +14,7 @@ import TikTokTabNavigator from './TikTok/TikTokTabNavigator';
 import ReactToMessage from './ReactToMessage/ReactToMessage';
 import DoubleTapToHeart from './DoubleTapToHeart/DoubleTapToHeart';
 import MoMoHeader from './MomoHeader/MomoHeader';
+import DragAndDrog from './DragAndDrog/DragAndDrog';
 
 const Stack = createNativeStackNavigator();
 
@@ -80,6 +80,11 @@ export default () => (
         component={MoMoHeader}
         options={{header: () => null}}
       />
+      <Stack.Screen
+        name="DragAndDrog"
+        component={DragAndDrog}
+        options={{title: 'Drag & Drog'}}
+      />
     </Stack.Navigator>
   </NavigationContainer>
 );
@@ -95,7 +100,7 @@ const MenuItem = ({onPress, label}) => {
 const HomeScreen = ({navigation}: any) => {
   const {navigate} = navigation;
   return (
-    <SafeAreaView style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <MenuItem
         onPress={() => navigate('AnimatedList')}
         label="Animated List"
@@ -105,14 +110,14 @@ const HomeScreen = ({navigation}: any) => {
         label="Draggable Bottom Sheet"
       />
       <MenuItem onPress={() => navigate('Tinder')} label="Tinder" />
-      <MenuItem
+      {/* <MenuItem
         onPress={() => navigate('ZoomableImage')}
         label="Zoomable Image"
-      />
-      <MenuItem
+      /> */}
+      {/* <MenuItem
         onPress={() => navigate('SwipeableList')}
         label="Swipeable List"
-      />
+      /> */}
       <MenuItem
         onPress={() => navigate('PickPhoneColor')}
         label="Pick phone color"
@@ -131,13 +136,14 @@ const HomeScreen = ({navigation}: any) => {
         label="Double Tap To Heart"
       />
       <MenuItem onPress={() => navigate('MoMoHeader')} label="MoMo Header" />
-    </SafeAreaView>
+      <MenuItem onPress={() => navigate('DragAndDrog')} label="Drag And Drog" />
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white',
