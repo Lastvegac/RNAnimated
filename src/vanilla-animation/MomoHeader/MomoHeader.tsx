@@ -9,13 +9,14 @@ import {
   ScrollView,
   StatusBar,
   Animated,
+  TouchableOpacity,
 } from 'react-native';
 
 const AnimatedTextInput = Animated.createAnimatedComponent(TextInput);
 
 const TRANSLATE_X_POINT = 80;
 
-export default function MomoHeader() {
+export default function MomoHeader({navigation}: any) {
   const animatedValue = useRef(new Animated.Value(0)).current;
 
   const translateY = {
@@ -154,11 +155,12 @@ export default function MomoHeader() {
               style={[styles.searchInput, textInputAnimation]}
             />
           </View>
-
-          <Image
-            source={require('../../assets/images/momo/bell.png')}
-            style={styles.bell}
-          />
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Image
+              source={require('../../assets/images/momo/bell.png')}
+              style={styles.bell}
+            />
+          </TouchableOpacity>
           <Image
             source={require('../../assets/images/momo/avatar.png')}
             style={styles.avatar}

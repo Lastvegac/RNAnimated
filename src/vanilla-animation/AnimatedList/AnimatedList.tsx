@@ -121,7 +121,7 @@ export default ({navigation}: any) => {
 
         <View style={styles.scrollViewContent}>
           <View style={styles.shopDetailsCard}>
-            <Text style={styles.shopName}>Minh Techie Restaurant</Text>
+            <Text style={styles.shopName}>Restaurant</Text>
             <Text style={styles.shopAddressTextRow}>
               <Text style={styles.distance}>6.9km</Text>
               <Text> - </Text>

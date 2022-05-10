@@ -1,5 +1,12 @@
-import React, {useState} from 'react';
-import {FlatList, Image, StyleSheet} from 'react-native';
+import React, {useRef, useState} from 'react';
+import {
+  Animated,
+  FlatList,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
 import {
   createBottomTabNavigator,
@@ -11,25 +18,42 @@ import {WINDOW_HEIGHT} from '../../utils';
 
 const BottomTab = createBottomTabNavigator();
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}: any) => {
   const [activeVideoIndex, setActiveVideoIndex] = useState(0);
+  const animatedValue = useRef(new Animated.Value(0)).current;
 
   const bottomTabHeight = useBottomTabBarHeight();
+  const backIconAnimation = {
+    opacity: animatedValue.interpolate({
+      inputRange: [0, 40],
+      outputRange: [1, 0],
+    }),
+  };
 
   return (
-    <FlatList
-      data={videosData}
-      pagingEnabled
-      renderItem={({item, index}) => (
-        <VideoItem data={item} isActive={activeVideoIndex === index} />
-      )}
-      onScroll={e => {
-        const index = Math.round(
-          e.nativeEvent.contentOffset.y / (WINDOW_HEIGHT - bottomTabHeight),
-        );
-        setActiveVideoIndex(index);
-      }}
-    />
+    <View>
+      <TouchableOpacity
+        style={styles.btnBack}
+        onPress={() => navigation.goBack()}>
+        <Animated.Image
+          source={require('../../assets/images/food-app/left-arrow.png')}
+          style={[styles.backIcon, backIconAnimation]}
+        />
+      </TouchableOpacity>
+      <FlatList
+        data={videosData}
+        pagingEnabled
+        renderItem={({item, index}) => (
+          <VideoItem data={item} isActive={activeVideoIndex === index} />
+        )}
+        onScroll={e => {
+          const index = Math.round(
+            e.nativeEvent.contentOffset.y / (WINDOW_HEIGHT - bottomTabHeight),
+          );
+          setActiveVideoIndex(index);
+        }}
+      />
+    </View>
   );
 };
 
@@ -133,5 +157,27 @@ const styles = StyleSheet.create({
   newVideoButton: {
     width: 48,
     height: 24,
+  },
+  backButton: {
+    position: 'absolute',
+    left: 24,
+    top: 48,
+    width: 48,
+    height: 48,
+    zIndex: 100,
+  },
+  backIcon: {
+    width: 16,
+    height: 16,
+    tintColor: 'white',
+    zIndex: 50,
+  },
+  btnBack: {
+    position: 'absolute',
+    top: 50,
+    left: 30,
+    width: 50,
+    height: 50,
+    zIndex: 1000,
   },
 });

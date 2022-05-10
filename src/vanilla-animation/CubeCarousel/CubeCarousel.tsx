@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useState, useRef} from 'react';
 import {
   StyleSheet,
   Animated,
@@ -8,7 +8,6 @@ import {
   SafeAreaView,
   Image,
 } from 'react-native';
-
 import users from '../../data/usersData';
 
 const {width} = Dimensions.get('window');
@@ -16,13 +15,11 @@ const perspective = width;
 const angle = Math.atan(perspective / (width / 2));
 const ratio = Platform.OS === 'ios' ? 2 : 1.2;
 
-export default class CubeCarousel extends React.Component {
-  state = {
-    x: new Animated.Value(0),
-  };
+const CubeCarousel = () => {
+  const [x] = useState(new Animated.Value(0));
+  const scroll = useRef(null);
 
-  getStyle(index: number) {
-    const {x} = this.state;
+  const getStyle = (index: number) => {
     const offset = index * width;
 
     const inputRange = [offset - width, offset + width];
@@ -61,10 +58,9 @@ export default class CubeCarousel extends React.Component {
         {translateX: translateX2},
       ],
     };
-  }
+  };
 
-  getMaskStyle(index: number) {
-    const {x} = this.state;
+  const getMaskStyle = (index: number) => {
     const offset = index * width;
     const inputRange = [offset - width, offset, offset + width];
     const opacity = x.interpolate({
@@ -77,46 +73,45 @@ export default class CubeCarousel extends React.Component {
       ...StyleSheet.absoluteFillObject,
       opacity,
     };
-  }
+  };
 
-  render() {
-    const {x} = this.state;
-    return (
-      <View style={styles.container}>
-        {users.map((user, i) => (
-          <Animated.View style={this.getStyle(i)} key={user.id}>
-            <SafeAreaView style={styles.container}>
-              <View style={styles.container}>
-                <Image style={styles.image} source={user.avatar} />
-              </View>
-            </SafeAreaView>
-            <Animated.View style={this.getMaskStyle(i)} />
-          </Animated.View>
-        ))}
-        <Animated.ScrollView
-          ref={this.scroll}
-          style={StyleSheet.absoluteFillObject}
-          showsHorizontalScrollIndicator={false}
-          scrollEventThrottle={16}
-          snapToInterval={width}
-          contentContainerStyle={{width: width * users.length}}
-          onScroll={Animated.event(
-            [
-              {
-                nativeEvent: {
-                  contentOffset: {x},
-                },
+  return (
+    <View style={styles.container}>
+      {users.map((user, i) => (
+        <Animated.View style={getStyle(i)} key={user.id}>
+          <SafeAreaView style={styles.container}>
+            <View style={styles.container}>
+              <Image style={styles.image} source={user.avatar} />
+            </View>
+          </SafeAreaView>
+          <Animated.View style={getMaskStyle(i)} />
+        </Animated.View>
+      ))}
+      <Animated.ScrollView
+        ref={scroll}
+        style={StyleSheet.absoluteFillObject}
+        showsHorizontalScrollIndicator={false}
+        scrollEventThrottle={16}
+        snapToInterval={width}
+        contentContainerStyle={{width: width * users.length}}
+        onScroll={Animated.event(
+          [
+            {
+              nativeEvent: {
+                contentOffset: {x},
               },
-            ],
-            {useNativeDriver: true},
-          )}
-          decelerationRate={0.99}
-          horizontal
-        />
-      </View>
-    );
-  }
-}
+            },
+          ],
+          {useNativeDriver: true},
+        )}
+        decelerationRate={0.99}
+        horizontal
+      />
+    </View>
+  );
+};
+
+export default CubeCarousel;
 
 const styles = StyleSheet.create({
   container: {

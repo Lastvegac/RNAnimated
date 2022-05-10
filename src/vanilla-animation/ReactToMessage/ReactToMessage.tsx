@@ -37,9 +37,7 @@ const ReactToMessage = () => {
           source={require('../../assets/images/users/girl1.jpeg')}
         />
         <View style={styles.messageContent}>
-          <Text style={styles.messageText}>
-            Like and subscribe to Minh Techie channel
-          </Text>
+          <Text style={styles.messageText}>Like and subscribe to channel</Text>
           <Text style={styles.messageSentTime}>6:09</Text>
         </View>
 
@@ -50,7 +48,6 @@ const ReactToMessage = () => {
             if (timeout.current) {
               clearTimeout(timeout.current);
             }
-
             setHeartCount(heartCount + 1);
             setHearts(oldHearts => [...oldHearts, {id: getUniqueID()}]);
 

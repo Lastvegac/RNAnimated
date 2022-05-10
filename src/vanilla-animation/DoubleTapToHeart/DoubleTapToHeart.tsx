@@ -72,9 +72,7 @@ const DoubleTapToHeart = () => {
           source={require('../../../src/assets/images/users/girl1.jpeg')}
         />
         <View style={styles.messageContent}>
-          <Text style={styles.messageText}>
-            Like and subscribe to Minh Techie channel
-          </Text>
+          <Text style={styles.messageText}>Wellcome to sharing</Text>
         </View>
 
         {isHearted && (
