@@ -22,6 +22,7 @@ export default () => {
   const [state, panHandlers] = usePanResponder();
 
   const {dragging, initialY, initialX, offsetY, offsetX} = state;
+
   const panResponder = useRef(
     PanResponder.create({
       onStartShouldSetPanResponder: () => true,
@@ -68,7 +69,7 @@ export default () => {
   ).current;
 
   const style = {
-    backgroundColor: dragging ? '#2DC' : '#0BA',
+    backgroundColor: dragging ? 'blue' : 'green',
     transform: [
       {translateX: initialX + offsetX},
       {translateY: initialY + offsetY},

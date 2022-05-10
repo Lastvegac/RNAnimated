@@ -110,14 +110,14 @@ const HomeScreen = ({navigation}: any) => {
         label="Draggable Bottom Sheet"
       />
       <MenuItem onPress={() => navigate('Tinder')} label="Tinder" />
-      {/* <MenuItem
+      <MenuItem
         onPress={() => navigate('ZoomableImage')}
         label="Zoomable Image"
-      /> */}
-      {/* <MenuItem
+      />
+      <MenuItem
         onPress={() => navigate('SwipeableList')}
         label="Swipeable List"
-      /> */}
+      />
       <MenuItem
         onPress={() => navigate('PickPhoneColor')}
         label="Pick phone color"

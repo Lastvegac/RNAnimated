@@ -1,6 +1,6 @@
 import React, {useEffect, useRef} from 'react';
 import {StyleSheet, Animated} from 'react-native';
-import {WINDOW_HEIGHT, WINDOW_WIDTH} from '../../utils/';
+import {WINDOW_HEIGHT, WINDOW_WIDTH} from '../../utils';
 
 const getRandomSignedNum = () => (Math.random() < 0.5 ? -1 : 1);
 const getRandomXOutput = () => {
